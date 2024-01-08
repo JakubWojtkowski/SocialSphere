@@ -5,6 +5,7 @@ const data = require("./posts.json");
 require("dotenv").config();
 
 app.use(express.json());
+app.use(express.static("build"));
 
 app.use(
   bodyParser.urlencoded({
@@ -12,9 +13,9 @@ app.use(
   })
 );
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send(data);
 });
 
