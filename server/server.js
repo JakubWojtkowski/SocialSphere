@@ -19,6 +19,21 @@ app.get("/api", (req, res) => {
   res.send(data);
 });
 
+app.get("/users", (req, res) => {});
+
+app.get("/users/:userId", (req, res) => {});
+
+app.get("/posts", (req, res) => {});
+
+app.get("/posts/:postId", (req, res) => {});
+
+app.post("/posts/", (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}...`);
 });

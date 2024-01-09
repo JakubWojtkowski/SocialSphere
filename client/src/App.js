@@ -6,7 +6,7 @@ function App() {
   const getPosts = async () => {
     await fetch("/api")
       .then((res) => res.json())
-      .then((data) => setPosts(data))
+      .then((data) => setPosts(data.posts))
       .catch((error) => console.error(error));
   };
 

@@ -1,9 +1,11 @@
-[{
-        "id": "1",
-        "title": "Lorem ipsum..."
-    },
-    {
-        "id": "2",
-        "title": "Lorem ipsum2..."
-    }
-]
+{
+    "posts": [{
+            "id": "1",
+            "title": "Lorem ipsum..."
+        },
+        {
+            "id": "2",
+            "title": "Lorem ipsum2..."
+        }
+    ]
+}
