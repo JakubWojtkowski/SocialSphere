@@ -1,11 +1,39 @@
-{
-    "posts": [{
-            "id": "1",
-            "title": "Lorem ipsum..."
-        },
-        {
-            "id": "2",
-            "title": "Lorem ipsum2..."
-        }
-    ]
-}
+[{
+        "id": "1",
+        "title": "Dziękuję wszystkim za przybycie na mój mecz!",
+        "user": "Robert Lewandowski",
+        "userImage": "https://www.themoviedb.org/t/p/original/6QxPhrJvmafpqmQW3yvgu0kjXaH.jpg",
+        "date": "21.01.2024",
+        "like": "17",
+        "comments": [{
+                "user": "Jan Kowalski",
+                "title": "Niezly mecz Robert!"
+            },
+            {
+                "user": "Adam Luzak",
+                "title": "Nice"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "title": "Pozdrawiam z gorącej Hiszpanii",
+        "user": "Jan Kowalski",
+        "userImage": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "like": "6",
+        "date": "20.01.2024",
+        "comments": [{
+            "user": "Adam Luzak",
+            "title": "Extra"
+        }]
+    },
+    {
+        "id": "3",
+        "title": "Myśleliscie kiedyś o locie w kosmos? Hmm...",
+        "user": "Adam Luzak",
+        "userImage": "https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+        "date": "18.01.2024",
+        "like": "11",
+        "comments": []
+    }
+]
