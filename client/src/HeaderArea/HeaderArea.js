@@ -1,9 +1,6 @@
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import {
-	FaFacebookMessenger,
-	FaBell,
-} from 'react-icons/fa';
+import { Avatar } from '@mui/material';
 import './HeaderArea.css';
 
 function HeaderArea() {
@@ -18,16 +15,13 @@ function HeaderArea() {
 				</div>
 
 				<div className='middle-header'>
-					<a href='#'><h1>SocialSphere</h1></a>
+					<a href='#'>
+						<h1>SocialSphere</h1>
+					</a>
 				</div>
 
 				<div className='third-header'>
-					<div className='plus'>
-						<FaFacebookMessenger fontSize='2rem' />
-					</div>
-					<div className='plus'>
-						<FaBell fontSize='2rem' />
-					</div>
+					<Avatar />
 				</div>
 			</div>
 		</div>

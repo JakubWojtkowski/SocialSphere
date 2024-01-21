@@ -3,31 +3,38 @@ html{
     box-sizing: border-box;
     margin-right: 0px;
 }
+
 *{
     margin: 0%;
 }
+
 body{
     font:1.6rem helvetica;
     background-color: #f0f2f5;
 }
+
 .HomePage{
     display: grid;
 }
+
 .header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
     height: 4.5rem;
     border: .1rem black;
+    margin-bottom: 20px;
 }
+
 .first-header{
     display: flex;
     width: 25%;
 }
+
 .Search{
     display: flex;
     align-items: center;
@@ -36,8 +43,8 @@ body{
     height: 2.8rem;
     padding: 0 20px;
     margin: 28px 7px;
-
 }
+
 input[type=Search]{
     width: 100%;
     padding: 12px 27px;
@@ -48,6 +55,7 @@ input[type=Search]{
     background-color: #F0F2F5;
     border:none;
 }
+
 input::placeholder{font-size: 1rem;}
 
 .middle-header{
@@ -61,31 +69,11 @@ input::placeholder{font-size: 1rem;}
     color: #1877F2;
     font-weight: bold;
 }
-.Icon{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0 50px;
-}
 
 .third-header{
     display: flex;
-    flex-grow: 1;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     width: 25%;
-    padding: 1em;
-}
-.Plus{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0px 50px;
-    border-radius: 50%;
-    height: 2.7rem;
-    background-color: #F0F2F5;
-}
-
-.active {
-    color: #1877F2;
+    padding: 1em 2em;
 }

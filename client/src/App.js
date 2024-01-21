@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './LoginPage/LoginPage';
 import MainArea from './MainArea/MainArea';
+import './App.css';
 
 function App() {
 	return (
