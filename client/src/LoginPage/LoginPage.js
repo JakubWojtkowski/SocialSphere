@@ -16,7 +16,7 @@ function LoginPage() {
 					<input type='Password' placeholder='Hasło' />
 					<br></br>
 					<button className='btn'>
-						<Link to='/HeaderArea'>Zaloguj się</Link>
+						<Link to='/MainArea'>Zaloguj się</Link>
 					</button>
 				</div>
 				<div className='forget'>
