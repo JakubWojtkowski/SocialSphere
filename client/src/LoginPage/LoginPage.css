@@ -1,0 +1,107 @@
+body {
+	font: 1.6rem helvetica;
+	box-sizing: border-box;
+	background-color: #f0f2f5;
+}
+
+.Login {
+	width: 100%;
+	height: 40rem;
+	display: flex;
+	border-radius: 1rem;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.facebooktext {
+	padding: 1rem;
+	font-size: 4rem;
+	color: #1877f2;
+	font-weight: 700;
+}
+
+.title {
+	font-size: 1.8rem;
+	color: black;
+	font-weight: 450;
+}
+
+.loginContainer {
+	border: white 0.3rem solid;
+	background-color: white;
+	height: 25rem;
+	width: 26rem;
+	padding: 1rem;
+	border-radius: 0.7rem;
+}
+
+input[type='email'] {
+	width: 100%;
+	padding: 20px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input[type='password'] {
+	width: 100%;
+	padding: 20px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input::placeholder {
+	font-size: 1.3em;
+}
+
+.btn {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	background-color: #1877f2;
+	border: none;
+	box-sizing: border-box;
+	padding: 15px 32px;
+	justify-content: center;
+	margin: 4px 2px;
+	border-radius: 0.5rem;
+	color: white;
+	text-decoration: none;
+}
+
+.forget a {
+	color: #1877f2;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	font-size: 1rem;
+	margin-top: 0.7em;
+}
+
+.btns {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #f0f2f5;
+	background-color: #42b72a;
+	border: none;
+	padding: 15px 6px;
+	text-decoration: none;
+	font-size: 18px;
+	cursor: pointer;
+	width: 60%;
+	font-weight: bold;
+	border-radius: 0.5rem;
+	margin-left: 20%;
+}
+
+.btn a {
+	text-decoration: none;
+	color: white;
+	width: 100%;
+	height: 100%;
+}
+
+.btn a:hover {
+	color: black;
+}
