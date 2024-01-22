@@ -5,6 +5,22 @@ const data = require("./posts.json");
 const users = require("./users.json");
 require("dotenv").config();
 const fs = require("fs");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://127.0.0.1:27017/blogDB");
+
+mongoose.set("strictQuery", true);
+
+const postSchema = mongoose.Schema({
+  author: String,
+  title: String,
+  content: String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  likes: Number,
+});
+
+const Post = mongoose.model("Post", postSchema);
 
 app.use(express.json());
 app.use(express.static("build"));
