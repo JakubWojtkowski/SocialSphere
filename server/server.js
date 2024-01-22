@@ -23,6 +23,16 @@ app.get("/api", (req, res) => {
   });
 });
 
+app.get("/users", (req, res) => {
+  fs.readFile(__dirname + "/" + "users.json", function (err, data) {
+    res.send(data);
+  });
+});
+
+app.get("/user/:id/followed", (req, res) => {
+  const id = req.params.id;
+});
+
 app.post("/", (req, res) => {
   let loggedInUser = null;
   for (const user of users) {
@@ -32,16 +42,29 @@ app.post("/", (req, res) => {
     }
   }
 
-  if (loggedInUser) {
-    res
-      .status(200)
-      .json({ message: "Zalogowano pomyślnie", user: loggedInUser });
-  } else {
-    res.status(401).json({ message: "Błędne dane logowania" });
-  }
+  res.send(loggedInUser);
 });
 
-app.post("/post", (req, res) => {});
+app.post("/post", (req, res) => {
+  const post = {
+    user: "",
+    userImage: "",
+    date: "22.01.2024",
+    title: req.body.title,
+    postImage: req.body.postImage,
+    like: "",
+    comments: [],
+  };
+
+  fs.readFile("posts.json", function (err, data) {
+    var json = JSON.parse(data);
+    json.push(post);
+    fs.writeFile("posts.json", JSON.stringify(json), function (err) {
+      if (err) throw err;
+      console.log('The "data to append" was appended to file!');
+    });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}...`);

@@ -26,11 +26,7 @@ function Post({ data }) {
       </div>
 
       <div className="postImg">
-        <img
-          src="https://yt3.googleusercontent.com/8WMLXd0asjwg4LsD9cWGgFqm17jmTt8I6XAvgFFR37naGITmv2-O3YQs9UN-1R91ssqDrjRR2Q=s900-c-k-c0x00ffffff-no-rj"
-          alt=""
-          width="100%"
-        />
+        <img src={data.postImage} alt="" width="100%" />
       </div>
 
       <div className="postStats">
