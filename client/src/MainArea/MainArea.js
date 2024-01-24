@@ -16,7 +16,7 @@ function MainArea() {
   const followedUsers = useSelector(selectUserFollowed);
 
   const getPosts = async () => {
-    await fetch("/api")
+    await fetch("/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((error) => console.error(error));
