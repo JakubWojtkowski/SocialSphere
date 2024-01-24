@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./MainArea.css";
 import HeaderArea from "../HeaderArea/HeaderArea";
 import CreateBoxPost from "../CreateBoxPost/CreateBoxPost";
@@ -9,23 +9,14 @@ import {
   selectUserFollowed,
   selectUserPhoto,
 } from "../features/user/userSlice";
+import { selectPosts } from "../features/post/postSlice";
 
 function MainArea() {
-  const [posts, setPosts] = useState([]);
   const userPhoto = useSelector(selectUserPhoto);
   const followedUsers = useSelector(selectUserFollowed);
+  const posts = useSelector(selectPosts);
 
-  const getPosts = async () => {
-    await fetch("/posts")
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
+  // console.log(posts);
   return (
     <>
       <HeaderArea userImage={userPhoto} />

@@ -16,6 +16,6 @@ const postSlice = createSlice({
 
 export const { setPosts } = postSlice.actions;
 
-export const selectPosts = (state) => state.movie.posts;
+export const selectPosts = (state) => state.post.posts;
 
 export default postSlice.reducer;

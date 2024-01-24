@@ -65,7 +65,7 @@ app.post("/posts/addPost", (req, res) => {
   const post = new Post({
     author: req.body.postAuthor,
     title: req.body.postTitle,
-    content: req.body.postContent,
+    postImg: req.body.postImg,
     comments: [],
     date: { type: Date, default: Date.now },
     likes: 0,

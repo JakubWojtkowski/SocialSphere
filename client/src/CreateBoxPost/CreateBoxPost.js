@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import "./CreateBoxPost.css";
-import { selectUserPhoto } from "../features/user/userSlice";
+import { selectUserName, selectUserPhoto } from "../features/user/userSlice";
 import { useSelector } from "react-redux";
 
 function CreateBoxPost() {
   const userPhoto = useSelector(selectUserPhoto);
+  const userName = useSelector(selectUserName);
   const [postContent, setPostContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
 
@@ -20,12 +21,13 @@ function CreateBoxPost() {
   const handlePostSubmit = async (e) => {
     e.preventDefault();
 
-    await fetch("/post", {
+    await fetch("/posts/addPost", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title: postContent,
         postImage: imgUrl,
+        author: userName,
       }),
     })
       .then((res) => {

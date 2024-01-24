@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import BeatLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserLogin } from "../features/user/userSlice";
 
 function LoginPage() {

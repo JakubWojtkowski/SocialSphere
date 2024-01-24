@@ -16,7 +16,7 @@ function Post({ data }) {
       <div className="postTop">
         <Avatar className="postAvatar" src={data.userImage} />
         <div className="info">
-          <h3>{data.user}</h3>
+          <h3>{data.author}</h3>
           <p>{data.date}</p>
         </div>
       </div>
@@ -33,7 +33,7 @@ function Post({ data }) {
         <div className="likes">
           <ThumbUpIcon />
           <p>
-            <span>{data.like}</span>
+            <span>{data.likes}</span>
           </p>
         </div>
 

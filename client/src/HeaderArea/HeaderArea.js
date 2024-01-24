@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Avatar } from "@mui/material";
 import "./HeaderArea.css";
+import { useDispatch } from "react-redux";
+import { setPosts } from "../features/post/postSlice";
 
 function HeaderArea({ userImage }) {
-  console.log(userImage);
+  const dispatch = useDispatch();
+
+  const getPosts = async () => {
+    await fetch("/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        let tempPosts = data;
+        dispatch(setPosts(tempPosts));
+      })
+      .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
     <div className="HomePage">
       <div className="header">
