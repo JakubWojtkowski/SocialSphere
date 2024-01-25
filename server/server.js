@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT;
 
+mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_CONNECTION_STRING);
-mongoose.set("strictQuery", true);
 
 const postSchema = mongoose.Schema({
   author: String,
@@ -55,27 +55,35 @@ app.get("/posts/:postId", (req, res) => {
     },
     (err, foundPost) => {
       if (!err) {
-        res.send();
+        res.send(foundPost);
       }
     }
   );
 });
 
-app.post("/posts/addPost", (req, res) => {
+app.post("/posts/addPost", async (req, res) => {
   const post = new Post({
-    author: req.body.postAuthor,
-    title: req.body.postTitle,
-    postImg: req.body.postImg,
-    comments: [],
+    author: req.body.author,
+    title: req.body.title,
+    postImg: req.body.postImage,
+    comments: req.body.comments,
     date: { type: Date, default: Date.now },
-    likes: 0,
+    likes: req.body.likes,
   });
 
-  post.save((err) => {
+  await post.save((err, doc) => {
     if (!err) {
-      res.redirect("/");
+      console.log(doc);
     }
   });
+});
+
+app.patch("posts/:postId", async (req, res) => {
+  try {
+    // ...
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 // users
@@ -86,15 +94,15 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/users/:id", (req, res) => {
-  const requestedPostId = req.params.postId;
+  const requestedUserId = req.params.userId;
 
-  Post.findOne(
+  User.findOne(
     {
-      _id: requestedPostId,
+      _id: requestedUserId,
     },
-    (err, foundPost) => {
+    (err, foundUser) => {
       if (!err) {
-        res.render();
+        res.send();
       }
     }
   );
@@ -115,6 +123,21 @@ app.post("/users/addUser", (req, res) => {
       res.redirect("/");
     }
   });
+});
+
+// login
+app.post("/login", (req, res) => {
+  User.findOne(
+    { email: req.body.email, password: req.body.password },
+    function (err, doc) {
+      if (doc && !err) {
+        res.send(doc);
+      } else {
+        res.send("err");
+        console.log("Error logging in!");
+      }
+    }
+  );
 });
 
 app.listen(PORT, () => {

@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import SidebarRow from "../SidebarRow/SidebarRow";
 
 function Sidebar({ followedUsers }) {
+  console.log(followedUsers);
   return (
     <div className="sidebar">
       <h2 className="observes">Obserwowani</h2>

@@ -21,6 +21,8 @@ function CreateBoxPost() {
   const handlePostSubmit = async (e) => {
     e.preventDefault();
 
+    if (postContent === "") return 0;
+
     await fetch("/posts/addPost", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -28,6 +30,8 @@ function CreateBoxPost() {
         title: postContent,
         postImage: imgUrl,
         author: userName,
+        likes: 0,
+        comments: [],
       }),
     })
       .then((res) => {

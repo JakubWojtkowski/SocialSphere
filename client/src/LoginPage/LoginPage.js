@@ -17,7 +17,7 @@ function LoginPage() {
   const signIn = async () => {
     setIsLoading(true);
 
-    await fetch("/", {
+    await fetch("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -26,8 +26,7 @@ function LoginPage() {
       }),
     })
       .then((res) => {
-        if (res.status == "200") {
-          console.log("ok");
+        if (res.status === 200) {
           navigate("/MainArea");
         }
         setIsLoading(false);
@@ -40,8 +39,8 @@ function LoginPage() {
             email: json.email,
             photo: json.userImage,
             password: json.password,
-            posts: json.posts,
-            followed: json.followed,
+            posts: json.postsIds,
+            followed: json.followedUsersIds,
           })
         );
       })
