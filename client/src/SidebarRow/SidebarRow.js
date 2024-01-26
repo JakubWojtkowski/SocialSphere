@@ -3,7 +3,6 @@ import "./SidebarRow.css";
 import { Avatar } from "@mui/material";
 
 function SidebarRow({ data }) {
-  // console.log(data);
   return (
     <div className="sidebarRow">
       {data ? <Avatar src={data.userImage} /> : <Avatar />}

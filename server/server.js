@@ -78,6 +78,26 @@ app.post("/posts/addPost", async (req, res) => {
   });
 });
 
+app.patch("/posts/update/:id", async (req, res) => {
+  const postId = req.params.id;
+  const updateFields = req.body;
+
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(postId, updateFields, {
+      new: true,
+    });
+
+    if (!updatedPost) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.json(updatedPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.patch("posts/:postId", async (req, res) => {
   try {
     // ...

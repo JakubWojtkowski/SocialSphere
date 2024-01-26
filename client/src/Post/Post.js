@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 import { Avatar } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -7,8 +7,26 @@ import "./Post.css";
 function Post({ data }) {
   const [isLike, setIsLike] = useState(false);
 
-  const likeChange = () => {
+  const likeChange = async () => {
     setIsLike(!isLike);
+    let updateLikes = parseInt(data.likes) + 1;
+
+    if (isLike) {
+      await fetch(`/posts/update/${data._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          likes: updateLikes,
+        }),
+      })
+        .then((res) => {
+          if (res.status == "200") {
+            console.log("ok");
+          }
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
