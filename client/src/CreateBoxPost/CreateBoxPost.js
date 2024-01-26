@@ -9,6 +9,7 @@ function CreateBoxPost() {
   const userName = useSelector(selectUserName);
   const [postContent, setPostContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+  console.log(userName);
 
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
@@ -30,6 +31,7 @@ function CreateBoxPost() {
         title: postContent,
         postImage: imgUrl,
         author: userName,
+        userImage: userPhoto,
         likes: 0,
         comments: [],
       }),
@@ -38,6 +40,7 @@ function CreateBoxPost() {
         if (res.status == "200") {
           console.log("ok");
         }
+        console.log(res);
       })
       .then((data) => console.log(data))
       .catch((error) => console.error(error));

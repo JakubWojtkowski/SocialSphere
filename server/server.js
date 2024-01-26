@@ -16,6 +16,7 @@ const postSchema = mongoose.Schema({
   comments: [{ author: String, body: String, date: Date }],
   date: { type: Date, default: Date.now },
   likes: Number,
+  userImage: String,
 });
 
 const userSchema = mongoose.Schema({
@@ -67,15 +68,19 @@ app.post("/posts/addPost", async (req, res) => {
     title: req.body.title,
     postImg: req.body.postImage,
     comments: req.body.comments,
-    date: { type: Date, default: Date.now },
     likes: req.body.likes,
+    userImage: req.body.userImage,
   });
 
-  await post.save((err, doc) => {
-    if (!err) {
+  try {
+    await post.save((err, doc) => {
       console.log(doc);
-    }
-  });
+      res.send(doc);
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.patch("/posts/update/:id", async (req, res) => {

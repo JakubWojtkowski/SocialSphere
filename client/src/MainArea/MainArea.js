@@ -16,7 +16,6 @@ function MainArea() {
   const followedUsers = useSelector(selectUserFollowed);
   const posts = useSelector(selectPosts);
 
-  // console.log(posts);
   return (
     <>
       <HeaderArea userImage={userPhoto} />

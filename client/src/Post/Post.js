@@ -20,7 +20,7 @@ function Post({ data }) {
         }),
       })
         .then((res) => {
-          if (res.status == "200") {
+          if (res.status === 200) {
             console.log("ok");
           }
         })
