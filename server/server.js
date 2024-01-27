@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
   userImage: String,
   email: String,
   password: String,
-  followedUsersIds: [],
+  followedUsersIds: [{ _id: String, name: String, userImage: String }],
 });
 
 const Post = mongoose.model("Post", postSchema);
@@ -139,6 +139,29 @@ app.get("/users/:id", (req, res) => {
     );
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.patch("/users/update/:id", async (req, res) => {
+  const userId = req.params.id;
+  const updateFields = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { followedUsersIds: updateFields.followedUsersIds } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.send(updatedUser);
+    console.log(updatedUser);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

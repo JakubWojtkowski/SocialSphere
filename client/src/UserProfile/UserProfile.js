@@ -5,7 +5,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./UserProfile.css";
 import HeaderArea from "../HeaderArea/HeaderArea";
 import Post from "../Post/Post";
-import { selectUserId, selectUserPhoto } from "../features/user/userSlice";
+import {
+  selectUserFollowed,
+  selectUserId,
+  selectUserPhoto,
+} from "../features/user/userSlice";
 import { selectPosts } from "../features/post/postSlice";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -14,9 +18,11 @@ function UserProfile() {
   const { userId } = useParams();
   const posts = useSelector(selectPosts);
   const userPhoto = useSelector(selectUserPhoto);
+  const userFollowed = useSelector(selectUserFollowed);
   const loggedUserId = useSelector(selectUserId);
   const [profileData, setProfileData] = useState({});
   const [followedNum, setFollowedNum] = useState(1);
+  const [isFollowed, setIsFollowed] = useState(false);
 
   const [isFollow, setIsFollow] = useState(false);
 
@@ -25,6 +31,35 @@ function UserProfile() {
     isFollow
       ? setFollowedNum(followedNum - 1)
       : setFollowedNum(followedNum + 1);
+  };
+
+  const follow = async () => {
+    await fetch(`/users/update/${loggedUserId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        followedUsersIds: [
+          {
+            _id: userId,
+            name: profileData.name,
+            userImage: profileData.userImage,
+          },
+        ],
+      }),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("ok");
+        }
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+
+  const checkIsFollowed = () => {
+    userFollowed?.map((user) => {
+      if (user._id === userId) setIsFollowed(true);
+    });
   };
 
   useEffect(() => {
@@ -38,6 +73,7 @@ function UserProfile() {
     };
 
     getUser();
+    checkIsFollowed();
   }, [userId]);
 
   return (
@@ -63,10 +99,24 @@ function UserProfile() {
                 )}
               </div>
               <div>
-                {userId === loggedUserId ? (
-                  <button disabled>Obserwuj</button>
+                {userId === loggedUserId || isFollowed ? (
+                  <button
+                    disabled
+                    style={{ borderRadius: "8px", padding: "8px" }}
+                  >
+                    Obserwuj
+                  </button>
                 ) : (
-                  <button>Obserwuj</button>
+                  <button
+                    style={{
+                      borderRadius: "8px",
+                      padding: "8px",
+                      cursor: "pointer",
+                    }}
+                    onClick={follow}
+                  >
+                    Obserwuj
+                  </button>
                 )}
               </div>
             </div>
