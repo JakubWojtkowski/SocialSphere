@@ -1,82 +1,92 @@
-import React, { useState } from 'react';
-import { Avatar } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import './UserProfile.css';
-import HeaderArea from '../HeaderArea/HeaderArea';
-import Sidebar from '../Sidebar/Sidebar';
-import Post from '../Post/Post';
-import { useSelector } from 'react-redux';
-import {
-	selectUserFollowed,
-	selectUserPhoto,
-} from '../features/user/userSlice';
-import { selectPosts } from '../features/post/postSlice';
+import React, { useEffect, useState } from "react";
+import { Avatar } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import "./UserProfile.css";
+import HeaderArea from "../HeaderArea/HeaderArea";
+import Post from "../Post/Post";
+import { selectUserId, selectUserPhoto } from "../features/user/userSlice";
+import { selectPosts } from "../features/post/postSlice";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function UserProfile() {
-	const userPhoto = useSelector(selectUserPhoto);
-	const followedUsers = useSelector(selectUserFollowed);
-	const posts = useSelector(selectPosts);
+  const { userId } = useParams();
+  const posts = useSelector(selectPosts);
+  const userPhoto = useSelector(selectUserPhoto);
+  const loggedUserId = useSelector(selectUserId);
+  const [profileData, setProfileData] = useState({});
+  const [followedNum, setFollowedNum] = useState(1);
 
-	const [isFollow, setIsFollow] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
 
-	const followChange = async () => {
-		setIsFollow(!isFollow);
-		//let updateFollows = parseInt(data.follows) + 1;
+  const followChange = async () => {
+    setIsFollow(!isFollow);
+    isFollow
+      ? setFollowedNum(followedNum - 1)
+      : setFollowedNum(followedNum + 1);
+  };
 
-		// if (isLike) {
-		//   await fetch(`/posts/update/${data._id}`, {
-		//     method: "PATCH",
-		//     headers: { "Content-Type": "application/json" },
-		//     body: JSON.stringify({
-		//       likes: updateLikes,
-		//     }),
-		//   })
-		//     .then((res) => {
-		//       if (res.status === 200) {
-		//         console.log("ok");
-		//       }
-		//     })
-		//     .then((data) => console.log(data))
-		//     .catch((error) => console.error(error));
-		// }
-	};
+  useEffect(() => {
+    const getUser = async () => {
+      await fetch(`/users/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setProfileData(data);
+        })
+        .catch((error) => console.error(error));
+    };
 
-	return (
-		<>
-			<HeaderArea userImage={userPhoto} />
-			<div className='body'>
-				<div className='container'>
-					<div className='profileHeader'>
-						<Avatar src={userPhoto} sx={{ width: 130, height: 130 }} />
-						<div className='profileInfo'>
-							<h3 className='profileName'>Adison Rakietson</h3>
-							<p>
-								Liczba obserwujących: <span>0</span>
-							</p>
-							<div className='follow' onClick={followChange}>
-								{isFollow ? (
-									<FavoriteIcon className='followClicked' />
-								) : (
-									<FavoriteBorderIcon />
-								)}
-							</div>
-						</div>
-					</div>
-				</div>
-				<Sidebar followedUsers={followedUsers} />
-			</div>
+    getUser();
+  }, [userId]);
 
-			{/* jakieś wyszukiwanie tylko postów z id ziomeczka którego to profil */}
-			<div className='posts'>
-				{posts &&
-					posts.length > 0 &&
-					posts.map((post, index) => {
-						return <Post key={index} data={post} />;
-					})}
-			</div>
-		</>
-	);
+  return (
+    <>
+      <HeaderArea userImage={userPhoto} />
+      <div className="body">
+        <div className="container">
+          <div className="profileHeader">
+            <Avatar
+              src={profileData.userImage}
+              sx={{ width: 130, height: 130 }}
+            />
+            <div className="profileInfo">
+              <h3 className="profileName">{profileData.name}</h3>
+              <p>
+                Liczba obserwujących: <span>{followedNum}</span>
+              </p>
+              <div className="follow" onClick={followChange}>
+                {isFollow ? (
+                  <FavoriteIcon className="followClicked" />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}
+              </div>
+              <div>
+                {userId === loggedUserId ? (
+                  <button disabled>Obserwuj</button>
+                ) : (
+                  <button>Obserwuj</button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="posts">
+        {posts &&
+          posts.length > 0 &&
+          posts.map((post, index) => {
+            if (userId === post.userId) {
+              return <Post key={index} data={post} />;
+            } else {
+              return "";
+            }
+          })}
+      </div>
+    </>
+  );
 }
 
 export default UserProfile;

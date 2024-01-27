@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import "./CreateBoxPost.css";
-import { selectUserName, selectUserPhoto } from "../features/user/userSlice";
+import {
+  selectUserName,
+  selectUserPhoto,
+  selectUserId,
+} from "../features/user/userSlice";
 import { useSelector } from "react-redux";
 
 function CreateBoxPost() {
   const userPhoto = useSelector(selectUserPhoto);
   const userName = useSelector(selectUserName);
+  const userId = useSelector(selectUserId);
   const [postContent, setPostContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
-  console.log(userName);
+
+  console.log();
 
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
@@ -28,6 +34,7 @@ function CreateBoxPost() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        userId: userId,
         title: postContent,
         postImage: imgUrl,
         author: userName,

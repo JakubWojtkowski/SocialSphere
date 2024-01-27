@@ -35,6 +35,7 @@ function LoginPage() {
       .then((json) => {
         dispatch(
           setUserLogin({
+            id: json._id,
             name: json.name,
             email: json.email,
             photo: json.userImage,

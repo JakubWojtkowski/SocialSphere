@@ -11,6 +11,7 @@ mongoose.connect(process.env.DB_CONNECTION_STRING);
 
 const postSchema = mongoose.Schema({
   author: String,
+  userId: Object,
   title: String,
   postImg: String,
   comments: [{ author: String, body: String, date: Date }],
@@ -65,6 +66,7 @@ app.get("/posts/:postId", (req, res) => {
 app.post("/posts/addPost", async (req, res) => {
   const post = new Post({
     author: req.body.author,
+    userId: req.body.userId,
     title: req.body.title,
     postImg: req.body.postImage,
     comments: req.body.comments,
@@ -119,29 +121,30 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/users/:id", (req, res) => {
-  const requestedUserId = req.params.userId;
+  const requestedUserId = req.params.id;
 
-  User.findOne(
-    {
-      _id: requestedUserId,
-    },
-    (err, foundUser) => {
-      if (!err) {
-        res.send();
+  try {
+    User.findOne(
+      {
+        _id: requestedUserId,
+      },
+      (err, foundUser) => {
+        if (!err) {
+          res.send(foundUser);
+          console.log(foundUser);
+        } else {
+          return res.status(404).json({ error: "User not found" });
+        }
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.post("/users/addUser", (req, res) => {
-  const user = new User({
-    author: req.body.postAuthor,
-    title: req.body.postTitle,
-    content: req.body.postContent,
-    comments: [],
-    date: { type: Date, default: Date.now },
-    likes: 0,
-  });
+  const user = new User({});
 
   user.save((err) => {
     if (!err) {

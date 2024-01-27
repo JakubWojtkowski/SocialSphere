@@ -2,7 +2,9 @@ import { React, useState } from "react";
 import { Avatar } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
+import Moment from "react-moment";
 import "./Post.css";
+import { Link } from "react-router-dom";
 
 function Post({ data }) {
   const [isLike, setIsLike] = useState(false);
@@ -34,8 +36,12 @@ function Post({ data }) {
       <div className="postTop">
         <Avatar className="postAvatar" src={data.userImage} />
         <div className="info">
-          <h3>{data.author}</h3>
-          <p>{data.date}</p>
+          <Link to={`/users/${data.userId}`}>
+            <h3>{data.author}</h3>
+          </Link>
+          <p>
+            <Moment format="DD/MM/YYYY">{data.date}</Moment>
+          </p>
         </div>
       </div>
 
@@ -44,7 +50,7 @@ function Post({ data }) {
       </div>
 
       <div className="postImg">
-        <img src={data.postImage} alt="" width="100%" />
+        <img src={data.postImg} alt="" width="100%" />
       </div>
 
       <div className="postStats">

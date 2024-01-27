@@ -5,6 +5,7 @@ import MainArea from "./MainArea/MainArea";
 import "./App.css";
 import { useSelector } from "react-redux";
 import { selectUserEmail } from "./features/user/userSlice";
+import UserProfile from "./UserProfile/UserProfile";
 
 function App() {
   const userEmail = useSelector(selectUserEmail);
@@ -14,6 +15,9 @@ function App() {
       <Routes>
         <Route path="/" exact={true} element={<LoginPage />} />
         {userEmail !== "" && <Route path="/MainArea" element={<MainArea />} />}
+        {userEmail !== "" && (
+          <Route path="/users/:userId" element={<UserProfile />} />
+        )}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
