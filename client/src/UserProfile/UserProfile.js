@@ -62,6 +62,23 @@ function UserProfile() {
     });
   };
 
+  const removePost = async (postId) => {
+    try {
+      const response = await fetch(`/posts/${postId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        console.log("Post deleted successfully");
+      } else {
+        console.error("Error deleting post:", response.status);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
   useEffect(() => {
     const getUser = async () => {
       await fetch(`/users/${userId}`)
@@ -129,7 +146,19 @@ function UserProfile() {
           posts.length > 0 &&
           posts.map((post, index) => {
             if (userId === post.userId) {
-              return <Post key={index} data={post} />;
+              return (
+                <div>
+                  <Post key={index} data={post} />
+                  {userId === loggedUserId && (
+                    <button
+                      className="removePost"
+                      onClick={() => removePost(post._id)}
+                    >
+                      Remove Post
+                    </button>
+                  )}
+                </div>
+              );
             } else {
               return "";
             }

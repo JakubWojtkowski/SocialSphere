@@ -2,11 +2,14 @@ import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Avatar } from "@mui/material";
 import "./HeaderArea.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../features/post/postSlice";
+import { Link } from "react-router-dom";
+import { selectUserId } from "../features/user/userSlice";
 
 function HeaderArea({ userImage }) {
   const dispatch = useDispatch();
+  const loggedUserId = useSelector(selectUserId);
 
   const getPosts = async () => {
     await fetch("/posts")
@@ -38,9 +41,11 @@ function HeaderArea({ userImage }) {
           </a>
         </div>
 
-        <div className="third-header">
-          <Avatar src={userImage} />
-        </div>
+        <Link to={`/users/${loggedUserId}`}>
+          <div className="third-header">
+            <Avatar src={userImage} />
+          </div>
+        </Link>
       </div>
     </div>
   );

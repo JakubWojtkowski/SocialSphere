@@ -1,38 +1,51 @@
 .container {
-	display: flex;
-	margin: 5.5rem 5% 0 25%;
-	width: 45%;
-	min-height: 200px;
-	border: 1px solid #ccc;
-	padding: 40px;
-	border-radius: 8px;
-	background: #fff;
-	box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  display: flex;
+  margin: 5.5rem 5% 0 25%;
+  width: 45%;
+  min-height: 200px;
+  border: 1px solid #ccc;
+  padding: 40px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
 }
 
 .profileHeader {
-	width: 100%;
-	display: flex;
+  width: 100%;
+  display: flex;
 }
 
 .profileName {
-	align-self: center;
+  align-self: center;
 }
 
 .profileInfo {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 40px;
 }
 
 .follow:hover {
-	cursor: pointer;
-	background-color: #eff2f5;
-	width: 30px;
-	border-radius: 10px;
+  cursor: pointer;
+  background-color: #eff2f5;
+  width: 30px;
+  border-radius: 10px;
 }
 
 .followClicked {
-	color: #1877f2;
+  color: #1877f2;
+}
+
+.removePost {
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #b8b6b6;
+  color: #ff4d6d;
+  font-weight: bold;
+  background-color: #f5f5f5;
 }

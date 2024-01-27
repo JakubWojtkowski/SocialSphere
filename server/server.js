@@ -113,6 +113,22 @@ app.patch("posts/:postId", async (req, res) => {
   }
 });
 
+app.delete("/posts/:id", async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    const deletedPost = await Post.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.send({ message: "Post deleted successfully", deletedPost });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 // users
 app.get("/users", (req, res) => {
   User.find({}, (err, foundUsers) => {
