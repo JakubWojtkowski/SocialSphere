@@ -1,17 +1,24 @@
 .sidebarRow {
-    display: flex;
-    align-items: center;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.sidebarRow a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
 }
 
 .sidebarRow:hover {
-    background-color: lightgray;
-    border-radius: 10px;
-    cursor: pointer;
+  background-color: lightgray;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .sidebarRow .userName {
-    margin-left: 10px;
-    font-weight: 600;
-    font-size: 1.3rem;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 1.3rem;
 }
