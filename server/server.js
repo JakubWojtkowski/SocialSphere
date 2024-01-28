@@ -105,11 +105,27 @@ app.patch("/posts/update/:id", async (req, res) => {
   }
 });
 
-app.patch("posts/:postId", async (req, res) => {
+app.patch("/posts/update/comment/:id", async (req, res) => {
+  console.log("ok z serwera");
+  const postId = req.params.id;
+  const updateFields = req.body;
+
   try {
-    // ...
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { $push: { comments: updateFields.comments } },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.send(updatedPost);
+    console.log(updatedPost);
   } catch (error) {
-    res.status(500).send(error);
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -147,7 +163,6 @@ app.get("/users/:id", (req, res) => {
       (err, foundUser) => {
         if (!err) {
           res.send(foundUser);
-          console.log(foundUser);
         } else {
           return res.status(404).json({ error: "User not found" });
         }

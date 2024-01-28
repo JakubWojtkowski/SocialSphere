@@ -6,14 +6,15 @@ import Moment from "react-moment";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import Comment from "../Comment/Comment";
+import { useSelector } from "react-redux";
+import { selectUserName } from "../features/user/userSlice";
 
 function Post({ data }) {
   const [isLike, setIsLike] = useState(false);
   const [isClickedComment, setIsClickedComment] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [post, setPost] = useState([]);
-
-  console.log(post);
+  const userName = useSelector(selectUserName);
 
   const likeChange = async () => {
     setIsLike(!isLike);
@@ -37,10 +38,35 @@ function Post({ data }) {
     }
   };
 
-  const handleCommentClick = () => {
+  const handleCommentClick = async () => {
     setIsClickedComment(!isClickedComment);
 
-    // POST request
+    await fetch(`/posts/update/comment/${data._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        comments: [
+          {
+            author: userName,
+            body: commentContent,
+            date: new Date().toISOString(),
+          },
+        ],
+      }),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("ok");
+        }
+      })
+      .then((data) => {
+        if (data) {
+          console.log(data);
+        }
+      })
+      .catch((error) => console.error(error));
   };
 
   const handleCommentChange = (e) => {
@@ -116,11 +142,10 @@ function Post({ data }) {
       </div>
 
       <div className="postComms">
-        {post &&
-          post.comments.length !== 0 &&
-          post.comments.map((comment, index) => {
-            return <Comment key={index} comment={comment} />;
-          })}
+        {post.comments &&
+          post.comments.map((comment, index) => (
+            <Comment key={index} comment={comment} />
+          ))}
       </div>
 
       {isClickedComment ? (
