@@ -1,0 +1,19 @@
+.comment {
+    margin-bottom: 15px;
+}
+
+.postComms {
+    padding: 20px;
+}
+
+.commentTop {
+    display: flex;
+}
+
+.commentInfo {
+    margin-left: 10px;
+}
+
+.commentInfo p{
+    font-size: 13px;
+}
