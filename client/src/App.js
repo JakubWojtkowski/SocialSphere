@@ -13,9 +13,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {userEmail === "" && (
-          <Route path="/" exact={true} element={<LoginPage />} />
-        )}
+        <Route path="/" exact={true} element={<LoginPage />} />
         {userEmail !== "" && <Route path="/MainArea" element={<MainArea />} />}
         {userEmail !== "" && (
           <Route path="/users/:userId" element={<UserProfile />} />
